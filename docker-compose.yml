@@ -1,0 +1,72 @@
+version: '3'
+
+services:
+  system:
+    container_name: rhel_so
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: rhel8_system
+    # restart: unless-stopped
+    tty: true
+    ports:
+      - "9090:9090"
+    working_dir: /
+    volumes:
+      - ./:/var/www
+#    environment: # IMP!: this variables overrides .env of application!!
+#      SERVICE_NAME: app
+#      SERVICE_TAGS: dev
+#      APP_ENV: ${APP_ENV} # local
+#    networks:
+#      - app-network
+
+#  #Nginx Service
+#  webserver:
+#    image: nginx:1.10.3
+#    container_name: cybersec_webserver
+#    # restart: unless-stopped
+#    tty: true
+#    ports:
+#      - "8088:80"
+#    #  - "44385:443"
+#    volumes:
+#      - ./:/var/www
+#      - ./docker/nginx/conf.d/:/etc/nginx/conf.d/
+#    networks:
+#      - app-network
+#
+#  #MySQL Service
+#  db:
+#    image: mysql:8.0.21 # mysql:5.7.29
+#    container_name: cybersec_db
+#    # restart: unless-stopped
+#    tty: true
+#    ports:
+#      - "3314:3306"
+#    environment:
+#      # docker create db and 'root' user with below info
+#      # non-root user can be created directly into db (for ex. via web with adminer)
+#      MYSQL_DATABASE: ${DB_DATABASE}
+#      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+#      MYSQL_USER: ${DB_USERNAME} # custom
+#      MYSQL_PASSWORD: ${DB_PASSWORD} # custom
+#      SERVICE_NAME: mysql
+#      SERVICE_TAGS: dev
+#    volumes:
+#      - dbdata:/var/lib/mysql/
+#      - ./docker/mysql/my.cnf:/etc/mysql/my.cnf
+#    networks:
+#      - app-network
+
+##Docker Networks
+#networks:
+#  app-network:
+#    driver: bridge
+
+#Volumes
+#volumes:
+#  dbdata:
+#    driver: local
+
+

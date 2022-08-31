@@ -1,6 +1,6 @@
 <html>
-<body>
-<?php print "Hello, world!\n" ?>
-</body>
+    <body>
+        <?php print "Hello, world!\n" ?>
+    </body>
 </html>
 

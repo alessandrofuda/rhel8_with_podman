@@ -1,26 +1,21 @@
 ## Guide
 
-### Option 1
-`docker run -it --name test_container_rhel84 registry.access.redhat.com/ubi8/ubi:8.4 bash`
+```
+docker-compose up --build
+```
+
+in new tab:
+
+`$  docker ps` ---> to see <container-ID>
+
+``$  docker exec -it <container-ID> bash``
+
+you are inside new clean redhat container with `root` user
+
+`cat /etc/os-release`  --> to verify current OS distrib & vers
 
 
-(Run `docker run -it roboxes/rhel8`  - It run rhel8 container and go inside via CLI)
-
-
-### Option 2
-
-- Write `Dockerfile` and then:
-
-- `docker build -t test-tag .`
-- `docker run --name test_container_rhel84 -p 8080:8080 -d test-tag`
-
-<br/>
-<br/>
-<br/>
-<br/>
-
-
-### Working example
+### Working example with docker (NO docker-compose)
 https://developers.redhat.com/blog/2020/03/24/red-hat-universal-base-images-for-docker-users#red_hat_enterprise_linux_and_docker 
 
 Dockerfile:
@@ -47,15 +42,15 @@ CMD php-fpm & httpd -D FOREGROUND
 index.php
 ```
 <html>
-<body>
-<?php print "Hello, world!\n" ?>
-</body>
+    <body>
+        <?php print "Hello, world!\n" ?>
+    </body>
 </html>
 ```
 
-`$   docker build -t php-hello .`
+`$   docker build --rm -t test .`
 
-`$   docker run --name hello -p 8080:8080 -d php-hello`
+`$   docker run -it --name test_name -p 8080:8080 -d test`
 
 To reset container:
 ```
