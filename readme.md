@@ -5,20 +5,21 @@ Switch from Docker (not works podman! ) TO VAGRANT VM (finally it works!)
 # Vagrant Box VM on top of VirtualBox with: Rhel8
 Scaffolding to make VirtualBox/Vagrant VM with:
 - RedHat 8 (Rhel 8),
-- vagrant user/group configuration
+- vagrant user/group configuration (password for vagrant user: `vagrant`)
+- cockpit - browser web console via http://localhost:9090  
 
 <br/>
 
-## A) Full Environment scaffolding
+## Full Environment scaffolding
 #### Run provisioner script, passing some env variables:
 
 1) On Linux
 
-`RHEL_USERNAME='username' RHEL_PASSWORD='password' APP_NAME='example_name' vagrant up --provision`
+`RHEL_USERNAME='username' RHEL_PASSWORD='password' vagrant up --provision`
 
 or
 
-`RHEL_USERNAME='username' RHEL_PASSWORD='password' APP_NAME='example_name' vagrant reload --provision` (Imp: use single quotes for pswd)
+`RHEL_USERNAME='username' RHEL_PASSWORD='password' vagrant reload --provision` (Imp: use single quotes for pswd)
 
 <br/>
 
@@ -39,6 +40,16 @@ https://access.redhat.com/management
 
 <br/>
 <br/>
+
+## To login into Cockpit browser web console:
+http://localhost:9090
+
+User: `vagrant`
+
+Password: `vagrant`
+
+(from here, it can switch to root user - admin privileges)
+
 <br/>
 <br/>
 <br/>
