@@ -6,6 +6,10 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        # credential on redhat site subscription-manager
+        RH_USERNAME: ${RHEL_SUB_USERNAME}
+        RH_PASSWORD: ${RHEL_SUB_PASSWORD}
     image: rhel8_system
     # restart: unless-stopped
     tty: true
