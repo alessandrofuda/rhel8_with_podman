@@ -3,22 +3,22 @@ FROM roboxes/rhel8
 
 # https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/building_running_and_managing_containers/assembly_starting-with-containers_building-running-and-managing-containers
 
-
 ARG RH_USERNAME
 ARG RH_PASSWORD
-
+ARG CONTAINER_USER
+ARG CONTAINER_PSWD
 
 RUN subscription-manager register --username ${RH_USERNAME} --password ${RH_PASSWORD} --auto-attach
-# OR
-# subscription-manager attach --pool PoolID (8a82c58b81811a960181b678d59b1b91  --  8a82c58b81811a960181b678d6d51b93)
-# RUN subscription-manager attach --pool=8a82c58b81811a960181b678d6d51b93
 
 RUN yum -y update \
     && yum -y upgrade \
     && yum module install -y container-tools
-#     && yum --disableplugin=subscription-manager -y module install container-tools
 
-#    && yum -y module install podman
+
+RUN useradd -c "${CONTAINER_USER}" ${CONTAINER_USER} \
+    && echo ${CONTAINER_USER}:${CONTAINER_PSWD} | chpasswd
+
+
 
 #RUN useradd podman \
 #    && echo podman:10000:5000 > /etc/subuid \

@@ -7,9 +7,12 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
-        # credential on redhat site subscription-manager
+        # credential on redhat site to subscription-manager
         RH_USERNAME: ${RHEL_SUB_USERNAME}
         RH_PASSWORD: ${RHEL_SUB_PASSWORD}
+        # non-root user to create inside the container
+        CONTAINER_USER: ${CONTAINER_USER}
+        CONTAINER_PSWD: ${CONTAINER_PASSWORD}
     image: rhel8_system
     # restart: unless-stopped
     tty: true
