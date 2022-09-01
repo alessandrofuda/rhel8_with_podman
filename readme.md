@@ -1,5 +1,61 @@
 ## Guide
 
+Switch from Docker (not works podman! ) TO VAGRANT VM (finally it works!)
+
+# Vagrant Box VM on top of VirtualBox with: Rhel8
+Scaffolding to make VirtualBox/Vagrant VM with:
+- RedHat 8 (Rhel 8),
+- vagrant user/group configuration
+
+<br/>
+
+## A) Full Environment scaffolding
+#### Run provisioner script, passing some env variables:
+
+1) On Linux
+
+`RHEL_USERNAME='username' RHEL_PASSWORD='password' APP_NAME='example_name' vagrant up --provision`
+
+or
+
+`RHEL_USERNAME='username' RHEL_PASSWORD='password' APP_NAME='example_name' vagrant reload --provision` (Imp: use single quotes for pswd)
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+Rhel username & password are your subscription-manager credential to rhel 8 site
+
+https://access.redhat.com/management
+
+#### If already provisioned, simply:
+`vagrant up`
+
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+---
+
+
+
+# OLD_ Docker (podman not works)
+
 ```
 docker-compose up --build
 ```

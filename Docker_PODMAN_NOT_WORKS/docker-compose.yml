@@ -4,8 +4,8 @@ services:
   system:
     container_name: rhel_so
     build:
-      context: .
-      dockerfile: Dockerfile
+      context: ..
+      dockerfile: ../Dockerfile
       args:
         # credential on redhat site to subscription-manager
         RH_USERNAME: ${RHEL_SUB_USERNAME}
