@@ -1,47 +1,32 @@
-## Guide
-
-Switch from Docker (not works podman! ) TO VAGRANT VM (finally it works!)
-
 # Vagrant Box VM on top of VirtualBox with: Rhel8
-Scaffolding to make VirtualBox/Vagrant VM with:
+Scaffolding to make VirtualBox/Vagrant VM with on-board:
 - RedHat 8 (Rhel 8),
+- Podman containerisation system
 - vagrant user/group configuration (password for vagrant user: `vagrant`)
 - cockpit - browser web console via http://localhost:9090  
 
 <br/>
 
 ## Full Environment scaffolding
-#### Run provisioner script, passing some env variables:
+#### 1) Run provisioner script, passing some env variables:
 
-1) On Linux
+On Linux:
 
 `RHEL_USERNAME='username' RHEL_PASSWORD='password' vagrant up --provision`
 
 or
 
-`RHEL_USERNAME='username' RHEL_PASSWORD='password' vagrant reload --provision` (Imp: use single quotes for pswd)
+`RHEL_USERNAME='username' RHEL_PASSWORD='password' vagrant reload --provision` (use single quotes for pswd)
 
-<br/>
+'username' & 'password' are your subscription-manager credentials from RHEL 8 website: https://access.redhat.com/management.
 
-<br/>
-
-<br/>
-
-<br/>
-
-<br/>
-
-Rhel username & password are your subscription-manager credential to rhel 8 site
-
-https://access.redhat.com/management
-
-#### If already provisioned, simply:
+#### 2) If already provisioned, simply:
 `vagrant up`
 
 <br/>
 <br/>
 
-## To login into Cockpit browser web console:
+#### 3) To login into Cockpit browser web console:
 http://localhost:9090
 
 User: `vagrant`
@@ -65,25 +50,20 @@ Password: `vagrant`
 
 
 
-# OLD_ Docker (podman not works)
+### OLD: Podman NOT WORKS inside RedHat Docker container (inside host: Ubuntu Linux), need full VM provisioning.
 
-```
-docker-compose up --build
-```
-
-in new tab:
+`$  docker-compose up --build`
 
 `$  docker ps` ---> to see <container-ID>
 
-``$  docker exec -it <container-ID> bash``
+`$  docker exec -it <container-ID> bash`
 
-you are inside new clean redhat container with `root` user
+you are inside new clean redhat container like `root` user
 
 `cat /etc/os-release`  --> to verify current OS distrib & vers
 
 
-### Working example with docker (NO docker-compose)
-https://developers.redhat.com/blog/2020/03/24/red-hat-universal-base-images-for-docker-users#red_hat_enterprise_linux_and_docker 
+#### Working example with docker (without Podman)
 
 Dockerfile:
 ```
