@@ -72,7 +72,7 @@ Password: `vagrant`
 
 `$  docker-compose up --build`
 
-`$  docker ps` ---> to see <container-ID>
+`$  docker ps` ---> to find out container ID
 
 `$  docker exec -it <container-ID> bash`
 
