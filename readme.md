@@ -1,7 +1,9 @@
 ## Vagrant Box VM on top of VirtualBox with: RHEL8 + Podman
-Scaffolding to make VirtualBox/Vagrant VM with on-board:
+Architecture scaffolding to make VirtualBox/Vagrant VM with on-board:
 - RedHat 8 (Rhel 8),
 - Podman containerisation system
+- Main Nginx Container to Reverse Proxy
+- Secondaries containers for each application
 - vagrant user/group configuration (password for vagrant user: `vagrant`)
 - cockpit - browser web console via http://localhost:9090  
 
