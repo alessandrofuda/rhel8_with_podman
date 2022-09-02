@@ -1,4 +1,4 @@
-# Vagrant Box VM on top of VirtualBox with: Rhel8
+## Vagrant Box VM on top of VirtualBox with: RHEL8 + Podman
 Scaffolding to make VirtualBox/Vagrant VM with on-board:
 - RedHat 8 (Rhel 8),
 - Podman containerisation system
