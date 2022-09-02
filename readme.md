@@ -12,7 +12,7 @@ Architecture scaffolding to make VirtualBox/Vagrant VM with on-board:
 ## Full Containers based Environment scaffolding
 <br/>
 
-#### 1) Run provisioner script, passing some env variables:
+#### 1a. Run provisioner script, passing some env variables:
 
 On Linux:
 
@@ -27,14 +27,22 @@ or
 <br/>
 <br/>
 
-#### 2) If already provisioned, simply run:
+#### 1b. If already provisioned, simply run:
 
 `vagrant up`
 
 <br/>
 <br/>
 
-#### 3) To login into Cockpit browser web console:
+#### 2. To go inside a VM
+
+`vagrant ssh`
+
+<br/>
+<br/>
+
+#### 3. To login into Cockpit via browser web console
+
 http://localhost:9090
 
 User: `vagrant`
@@ -43,6 +51,8 @@ Password: `vagrant`
 
 (from here, it can switch to root user - admin privileges)
 
+<br/>
+<br/>
 <br/>
 <br/>
 <br/>
