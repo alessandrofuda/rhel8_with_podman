@@ -2,14 +2,16 @@
 Architecture scaffolding to make VirtualBox/Vagrant VM with on-board:
 - RedHat 8 (Rhel 8),
 - Podman containerisation system
-- Main Nginx Container to Reverse Proxy
+- Main Nginx Container to Reverse Proxy (expose ports 443/80)
 - Secondaries containers for each application
 - vagrant user/group configuration (password for vagrant user: `vagrant`)
 - cockpit - browser web console via http://localhost:9090  
 
 <br/>
 
-## Full Environment scaffolding
+## Full Containers based Environment scaffolding
+<br/>
+
 #### 1) Run provisioner script, passing some env variables:
 
 On Linux:
@@ -20,9 +22,13 @@ or
 
 `RHEL_USERNAME='username' RHEL_PASSWORD='password' vagrant reload --provision` (use single quotes for pswd)
 
-'username' & 'password' are your subscription-manager credentials from RHEL 8 website: https://access.redhat.com/management.
+`username` & `password` are the subscription-manager credentials from RHEL 8 website: https://access.redhat.com/management.
 
-#### 2) If already provisioned, simply:
+<br/>
+<br/>
+
+#### 2) If already provisioned, simply run:
+
 `vagrant up`
 
 <br/>
