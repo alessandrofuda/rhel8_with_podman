@@ -50,7 +50,7 @@ sed -i 's/SELINUX=permissive/SELINUX=disabled/' /etc/selinux/config
 # systemctl start nginx || error_exit $((++step - 1))
 # systemctl enable nginx || error_exit $((++step - 1))
 
-echo $((++step))') - open firewall http/https & reload'
+echo $((++step))') - open firewall http/https and other ports & reload'
 firewall-cmd --permanent --zone=public --add-service=http || error_exit $((++step - 1))
 firewall-cmd --permanent --zone=public --add-service=https || error_exit $((++step - 1))
 firewall-cmd --permanent --zone=public --add-port 9090/tcp || error_exit $((++step - 1))
@@ -112,6 +112,29 @@ yum install cockpit
 systemctl enable --now cockpit.socket
 firewall-cmd --add-service=cockpit --permanent
 firewall-cmd --reload
+
+
+# PODMAN #######################################
+echo $((++step))') - Podman pull nginx image (for reverse proxy function)'
+podman pull docker.io/library/nginx:latest
+
+echo $((++step))') - Podman run nginx reverse proxy'
+echo 'test' > test.html
+podman run -d -p 8080:80 --name nginx-rev-proxy --volume ./test.html:/var/www/html docker.io/library/nginx
+
+
+
+## TODO .. TBC...
+
+
+
+
+echo $((++step))') - Podman pull needed images'
+podman pull php:7.4.25-apache-bullseye  ## EXAMPLE !!
+
+
+################################################
+
 
 echo 'PROVISIONING COMPLETED'
 END=`date +%s`
