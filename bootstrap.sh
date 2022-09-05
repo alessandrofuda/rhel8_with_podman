@@ -54,6 +54,7 @@ echo $((++step))') - open firewall http/https and other ports & reload'
 firewall-cmd --permanent --zone=public --add-service=http || error_exit $((++step - 1))
 firewall-cmd --permanent --zone=public --add-service=https || error_exit $((++step - 1))
 firewall-cmd --permanent --zone=public --add-port 9090/tcp || error_exit $((++step - 1))
+firewall-cmd --permanent --zone=public --add-port 8080/tcp || error_exit $((++step - 1))
 systemctl reload firewalld || error_exit $((++step - 1))
 
 # echo $((++step))') - dnf install php v. 7.4.6 & php-fpm 7.4.6'
@@ -91,7 +92,11 @@ chown -R vagrant:vagrant /home/vagrant/.ssh || error_exit $((++step - 1))
 
 # echo $((++step))') - install composer & move to global use'
 # php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-# php -r "if (hash_file('sha384', 'composer-setup.php') === '906a84df04cea2aa72f40b5f787e49f22d4c2f19492ac310e8cba5b96ac8b64115ac402c8cd292b8a03482574915d1a8') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+# php -r "if (hash_file('sha384', 'composer-setup.php') === '906a84df04cea2aa72f40b5f787e49f22d4c2f19492ac310e8cba5b96ac8b64115ac402c8cd292b8a03482574915d1a8') {
+#     echo 'Installer verified';
+#     } else {
+#       echo 'Installer corrupt'; unlink('composer-setup.php');
+#     } echo PHP_EOL;"
 # php composer-setup.php
 # php -r "unlink('composer-setup.php');"
 # mv /home/vagrant/composer.phar /usr/local/bin/composer || error_exit $((++step - 1))
@@ -114,13 +119,17 @@ firewall-cmd --add-service=cockpit --permanent
 firewall-cmd --reload
 
 
-# PODMAN #######################################
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+# PODMAN OPERAZIONI DA FARE DIRETTAMENTE NEL SERVER => cambiano in base ai containers che vogliamo istanziare ################
 echo $((++step))') - Podman pull nginx image (for reverse proxy function)'
 podman pull docker.io/library/nginx:latest
 
 echo $((++step))') - Podman run nginx reverse proxy'
 echo 'test' > test.html
-podman run -d -p 8080:80 --name nginx-rev-proxy --volume ./test.html:/var/www/html docker.io/library/nginx
+# podman run -d -p 8080:80 --name nginx-rev-proxy --volume ./test.html:/var/www/html/test.html docker.io/library/nginx
+podman run -d -p 8080:80 --rm --name nginx-rev-proxy --volume ./test.html:/usr/share/nginx/html/index.html docker.io/library/nginx
 
 
 
@@ -134,6 +143,7 @@ podman pull php:7.4.25-apache-bullseye  ## EXAMPLE !!
 
 
 ################################################
+#-----------------------------------------------------------------------------------------------------------------------
 
 
 echo 'PROVISIONING COMPLETED'

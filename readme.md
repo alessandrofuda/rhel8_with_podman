@@ -1,4 +1,15 @@
 ## Vagrant Box VM on top of VirtualBox with: RHEL8 + Podman
+
+<br/>
+
+<table><tr><td>
+
+__***3 layers involved: HOST -----> VM with RHEL S.O. -----> PODMAN CONTAINERS inside VM (folders apps are mapped to host)***__
+
+</td></tr></table>
+
+<br/>
+
 Architecture scaffolding to make VirtualBox/Vagrant VM with on-board:
 - RedHat 8 (Rhel 8),
 - Podman containerisation system
