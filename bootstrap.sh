@@ -55,6 +55,8 @@ firewall-cmd --permanent --zone=public --add-service=http || error_exit $((++ste
 firewall-cmd --permanent --zone=public --add-service=https || error_exit $((++step - 1))
 firewall-cmd --permanent --zone=public --add-port 9090/tcp || error_exit $((++step - 1))
 firewall-cmd --permanent --zone=public --add-port 8080/tcp || error_exit $((++step - 1))
+firewall-cmd --permanent --zone=public --add-port 8081/tcp || error_exit $((++step - 1))
+firewall-cmd --permanent --zone=public --add-port 8082/tcp || error_exit $((++step - 1))
 systemctl reload firewalld || error_exit $((++step - 1))
 
 # echo $((++step))') - dnf install php v. 7.4.6 & php-fpm 7.4.6'
@@ -123,13 +125,32 @@ firewall-cmd --reload
 
 # ----------------------------------------------------------------------------------------------------------------------
 # PODMAN OPERAZIONI DA FARE DIRETTAMENTE NEL SERVER => cambiano in base ai containers che vogliamo istanziare ################
-echo $((++step))') - Podman pull nginx image (for reverse proxy function)'
+# Podman pull nginx image (for reverse proxy function)
 podman pull docker.io/library/nginx:latest
 
-echo $((++step))') - Podman run nginx reverse proxy'
+# Podman run nginx reverse proxy container
 echo 'test' > test.html
-# podman run -d -p 8080:80 --name nginx-rev-proxy --volume ./test.html:/var/www/html/test.html docker.io/library/nginx
-podman run -d -p 8080:80 --rm --name nginx-rev-proxy --volume ./test.html:/usr/share/nginx/html/index.html docker.io/library/nginx
+echo 'container1' > test1.html
+echo 'container2' > test2.html
+
+podman run  -p 8080:80 \
+            --rm \
+            --name nginx-rev-proxy \
+            -v ./test.html:/usr/share/nginx/html/index.html \
+            docker.io/library/nginx
+
+
+podman run  -p 8081:80 \
+            --rm \
+            --name app1 \
+            -v ./test1.html:/usr/share/nginx/html/index.html \
+            docker.io/library/nginx
+
+podman run  -p 8082:80 \
+            --rm \
+            --name app2 \
+            -v ./test2.html:/usr/share/nginx/html/index.html \
+            docker.io/library/nginx
 
 
 
