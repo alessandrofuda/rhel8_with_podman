@@ -43,12 +43,12 @@ setenforce 0
 sed -i 's/SELINUX=enforcing/SELINUX=disabled/' /etc/selinux/config
 sed -i 's/SELINUX=permissive/SELINUX=disabled/' /etc/selinux/config
 
-# echo $((++step))') - yum install nginx v. 1.14.1'
-# yum install -y nginx-1.14.1 || error_exit $((++step - 1))
-# sudo cp /home/vagrant/config/nginx/myapp.conf /etc/nginx/conf.d/myapp.conf || error_exit $((++step - 1))
+echo $((++step))') - yum install nginx v. 1.14.1'
+yum install -y nginx-1.14.1 || error_exit $((++step - 1))
+sudo cp /home/vagrant/configs/reverse_proxy.conf /etc/nginx/conf.d/default.conf || error_exit $((++step - 1))
 # sed -i "s/_my_app_placeholder_/${APP_NAME}/" /etc/nginx/conf.d/myapp.conf || error_exit $((++step - 1))
-# systemctl start nginx || error_exit $((++step - 1))
-# systemctl enable nginx || error_exit $((++step - 1))
+systemctl start nginx || error_exit $((++step - 1))
+systemctl enable nginx || error_exit $((++step - 1))
 
 echo $((++step))') - open firewall http/https and other ports & reload'
 firewall-cmd --permanent --zone=public --add-service=http || error_exit $((++step - 1))
@@ -133,37 +133,6 @@ podman pull docker.io/library/nginx:latest
 # echo 'container1' > test1.html
 # echo 'container2' > test2.html
 
-podman run  -p 8080:80 \
-            --rm \
-            --name nginx-rev-proxy \
-            -v ./configs/test.html:/usr/share/nginx/html/index.html \
-            -v ./configs/reverse_proxy.conf:/etc/nginx/conf.d/default.conf \
-            docker.io/library/nginx
-
-
-podman run  -p 8081:8081 \
-            --rm \
-            --name app1 \
-            --hostname app1 \
-            -v ./configs/app1/test1.html:/usr/share/nginx/html/index.html \
-            -v ./configs/app1/nginx/default.conf:/etc/nginx/conf.d/default.conf \
-            docker.io/library/nginx
-
-
-podman run  -p 8082:80 \
-            --rm \
-            --name app2 \
-            -v ./configs/app2/test2.html:/usr/share/nginx/html/index.html \
-            -v ./configs/app2/nginx/default.conf:/etc/nginx/conf.d/default.conf \
-            docker.io/library/nginx
-
-
-
-## TODO .. TBC...
-
-
-
-
 echo $((++step))') - Podman pull needed images'
 podman pull php:7.4.25-apache-bullseye  ## EXAMPLE !!
 
@@ -175,4 +144,22 @@ podman pull php:7.4.25-apache-bullseye  ## EXAMPLE !!
 echo 'PROVISIONING COMPLETED'
 END=`date +%s`
 echo "Time: "$((END-START))" sec."
+
+
+
+
+
+#podman run  -p 8080:80 \
+#            --rm \
+#            --name nginx-rev-proxy \
+#            -v ./configs/test.html:/usr/share/nginx/html/index.html \
+#            -v ./configs/reverse_proxy.conf:/etc/nginx/conf.d/default.conf \
+#            docker.io/library/nginx
+
+
+
+
+
+
+
 

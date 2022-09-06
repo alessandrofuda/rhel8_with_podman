@@ -4,7 +4,7 @@
 
 <table><tr><td>
 
-__***3 layers involved: HOST -----> VM with RHEL S.O. -----> PODMAN CONTAINERS inside VM (folders apps are mapped to host)***__
+__***3 layers involved:  HOST -----> VM with RHEL S.O. and NGINX reverse proxy -----> PODMAN CONTAINERS inside VM (folders apps are mapped to host)***__
 
 </td></tr></table>
 
@@ -52,7 +52,32 @@ or
 <br/>
 <br/>
 
-#### 3. To login into Cockpit via browser web console
+#### 3. Run Podman containers
+
+(add -d option to run detach mode)
+
+```
+podman run  -p 8081:8081 \
+            --rm \
+            --name app1 \
+            -v ./configs/app1/test1.html:/usr/share/nginx/html/index.html \
+            -v ./configs/app1/nginx/default.conf:/etc/nginx/conf.d/default.conf \
+            docker.io/library/nginx
+
+
+podman run  -p 8082:8082 \
+            --rm \
+            --name app2 \
+            -v ./configs/app2/test2.html:/usr/share/nginx/html/index.html \
+            -v ./configs/app2/nginx/default.conf:/etc/nginx/conf.d/default.conf \
+            docker.io/library/nginx
+```
+
+<br/>
+<br/>
+<br/>
+
+#### 4. To login into Cockpit via browser web console
 
 http://localhost:9090
 
