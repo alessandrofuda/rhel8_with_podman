@@ -129,27 +129,27 @@ firewall-cmd --reload
 podman pull docker.io/library/nginx:latest
 
 # Podman run nginx reverse proxy container
-echo 'test' > test.html
-echo 'container1' > test1.html
-echo 'container2' > test2.html
+# echo 'test' > test.html
+# echo 'container1' > test1.html
+# echo 'container2' > test2.html
 
 podman run  -p 8080:80 \
             --rm \
             --name nginx-rev-proxy \
-            -v ./test.html:/usr/share/nginx/html/index.html \
+            -v ./configs/test.html:/usr/share/nginx/html/index.html \
             docker.io/library/nginx
 
 
 podman run  -p 8081:80 \
             --rm \
             --name app1 \
-            -v ./test1.html:/usr/share/nginx/html/index.html \
+            -v ./configs/app1/test1.html:/usr/share/nginx/html/index.html \
             docker.io/library/nginx
 
 podman run  -p 8082:80 \
             --rm \
             --name app2 \
-            -v ./test2.html:/usr/share/nginx/html/index.html \
+            -v ./configs/app2/test2.html:/usr/share/nginx/html/index.html \
             docker.io/library/nginx
 
 
