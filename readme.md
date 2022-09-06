@@ -13,7 +13,7 @@ __***3 layers involved: HOST -----> VM with RHEL S.O. -----> PODMAN CONTAINERS i
 Architecture scaffolding to make VirtualBox/Vagrant VM with on-board:
 - RedHat 8 (Rhel 8),
 - Podman containerisation system
-- Main Nginx Container to Reverse Proxy (expose ports 443/80)
+- Nginx on host installed as Reverse Proxy (expose ports 443/80)
 - Secondaries containers for each application
 - vagrant user/group configuration (password for vagrant user: `vagrant`)
 - cockpit - browser web console via http://localhost:9090  
@@ -64,6 +64,16 @@ Password: `vagrant`
 
 <br/>
 <br/>
+
+#### To test proxy_pass between more different domains: set `/etc/hosts` in **localhost**:
+
+```
+# /etc/hosts
+
+127.0.0.1    example1.test example2.test
+```
+
+
 <br/>
 <br/>
 <br/>

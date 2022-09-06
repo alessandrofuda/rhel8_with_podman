@@ -137,19 +137,24 @@ podman run  -p 8080:80 \
             --rm \
             --name nginx-rev-proxy \
             -v ./configs/test.html:/usr/share/nginx/html/index.html \
+            -v ./configs/reverse_proxy.conf:/etc/nginx/conf.d/default.conf \
             docker.io/library/nginx
 
 
-podman run  -p 8081:80 \
+podman run  -p 8081:8081 \
             --rm \
             --name app1 \
+            --hostname app1 \
             -v ./configs/app1/test1.html:/usr/share/nginx/html/index.html \
+            -v ./configs/app1/nginx/default.conf:/etc/nginx/conf.d/default.conf \
             docker.io/library/nginx
+
 
 podman run  -p 8082:80 \
             --rm \
             --name app2 \
             -v ./configs/app2/test2.html:/usr/share/nginx/html/index.html \
+            -v ./configs/app2/nginx/default.conf:/etc/nginx/conf.d/default.conf \
             docker.io/library/nginx
 
 
